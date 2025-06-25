@@ -63,7 +63,27 @@ namespace chat_client {
             Application.Exit();
         }
 
-        public void OnLoginResponse(LoginResponse response) {  }
+        public void OnLoginResponse(LoginResponse response) {
+
+            // UI thread에서만 실행
+            if (this.InvokeRequired)
+            {
+                this.Invoke(new Action(() => OnLoginResponse(response)));
+                return; 
+            }
+             
+             if (response.Success)
+            {
+                UserManager.Instance.SetMyUserInfo(response.Sender.Id, response.Sender.Name);
+                ChatForm chat = new ChatForm(this);
+                chat.Show();
+                this.Hide();
+            }
+            else
+            {
+                MessageBox.Show("아이디와 비밀번호를 확인하시오.");
+            }
+        }
         public void OnJoinResponse(JoinResponse response) {  }
         public void OnChatMessage(ChatMessage message) {  }
 

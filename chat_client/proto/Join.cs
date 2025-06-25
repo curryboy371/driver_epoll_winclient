@@ -24,14 +24,16 @@ namespace Join {
     static JoinReflection() {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
-            "Cgpqb2luLnByb3RvEgRKb2luIjkKC0pvaW5SZXF1ZXN0EgoKAmlkGAEgASgJ",
-            "EhAKCHBhc3N3b3JkGAIgASgJEgwKBG5hbWUYAyABKAkiMAoMSm9pblJlc3Bv",
-            "bnNlEg8KB3N1Y2Nlc3MYASABKAgSDwoHbWVzc2FnZRgCIAEoCWIGcHJvdG8z"));
+            "Cgpqb2luLnByb3RvEgRqb2luGgxjb21tb24ucHJvdG8iOQoLSm9pblJlcXVl",
+            "c3QSCgoCaWQYASABKAkSEAoIcGFzc3dvcmQYAiABKAkSDAoEbmFtZRgDIAEo",
+            "CSJ1CgxKb2luUmVzcG9uc2USDwoHc3VjY2VzcxgBIAEoCBIhCgZzZW5kZXIY",
+            "AiABKAsyES5jaGF0X2NvbW1vbi5Vc2VyEiAKBXVzZXJzGAMgAygLMhEuY2hh",
+            "dF9jb21tb24uVXNlchIPCgdtZXNzYWdlGAQgASgJYgZwcm90bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
-          new pbr::FileDescriptor[] { },
+          new pbr::FileDescriptor[] { global::ChatCommon.CommonReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
             new pbr::GeneratedClrTypeInfo(typeof(global::Join.JoinRequest), global::Join.JoinRequest.Parser, new[]{ "Id", "Password", "Name" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Join.JoinResponse), global::Join.JoinResponse.Parser, new[]{ "Success", "Message" }, null, null, null, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::Join.JoinResponse), global::Join.JoinResponse.Parser, new[]{ "Success", "Sender", "Users", "Message" }, null, null, null, null)
           }));
     }
     #endregion
@@ -346,6 +348,8 @@ namespace Join {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public JoinResponse(JoinResponse other) : this() {
       success_ = other.success_;
+      sender_ = other.sender_ != null ? other.sender_.Clone() : null;
+      users_ = other.users_.Clone();
       message_ = other.message_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
@@ -368,8 +372,31 @@ namespace Join {
       }
     }
 
+    /// <summary>Field number for the "sender" field.</summary>
+    public const int SenderFieldNumber = 2;
+    private global::ChatCommon.User sender_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public global::ChatCommon.User Sender {
+      get { return sender_; }
+      set {
+        sender_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "users" field.</summary>
+    public const int UsersFieldNumber = 3;
+    private static readonly pb::FieldCodec<global::ChatCommon.User> _repeated_users_codec
+        = pb::FieldCodec.ForMessage(26, global::ChatCommon.User.Parser);
+    private readonly pbc::RepeatedField<global::ChatCommon.User> users_ = new pbc::RepeatedField<global::ChatCommon.User>();
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public pbc::RepeatedField<global::ChatCommon.User> Users {
+      get { return users_; }
+    }
+
     /// <summary>Field number for the "message" field.</summary>
-    public const int MessageFieldNumber = 2;
+    public const int MessageFieldNumber = 4;
     private string message_ = "";
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -396,6 +423,8 @@ namespace Join {
         return true;
       }
       if (Success != other.Success) return false;
+      if (!object.Equals(Sender, other.Sender)) return false;
+      if(!users_.Equals(other.users_)) return false;
       if (Message != other.Message) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
@@ -405,6 +434,8 @@ namespace Join {
     public override int GetHashCode() {
       int hash = 1;
       if (Success != false) hash ^= Success.GetHashCode();
+      if (sender_ != null) hash ^= Sender.GetHashCode();
+      hash ^= users_.GetHashCode();
       if (Message.Length != 0) hash ^= Message.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
@@ -428,8 +459,13 @@ namespace Join {
         output.WriteRawTag(8);
         output.WriteBool(Success);
       }
-      if (Message.Length != 0) {
+      if (sender_ != null) {
         output.WriteRawTag(18);
+        output.WriteMessage(Sender);
+      }
+      users_.WriteTo(output, _repeated_users_codec);
+      if (Message.Length != 0) {
+        output.WriteRawTag(34);
         output.WriteString(Message);
       }
       if (_unknownFields != null) {
@@ -446,8 +482,13 @@ namespace Join {
         output.WriteRawTag(8);
         output.WriteBool(Success);
       }
-      if (Message.Length != 0) {
+      if (sender_ != null) {
         output.WriteRawTag(18);
+        output.WriteMessage(Sender);
+      }
+      users_.WriteTo(ref output, _repeated_users_codec);
+      if (Message.Length != 0) {
+        output.WriteRawTag(34);
         output.WriteString(Message);
       }
       if (_unknownFields != null) {
@@ -463,6 +504,10 @@ namespace Join {
       if (Success != false) {
         size += 1 + 1;
       }
+      if (sender_ != null) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(Sender);
+      }
+      size += users_.CalculateSize(_repeated_users_codec);
       if (Message.Length != 0) {
         size += 1 + pb::CodedOutputStream.ComputeStringSize(Message);
       }
@@ -481,6 +526,13 @@ namespace Join {
       if (other.Success != false) {
         Success = other.Success;
       }
+      if (other.sender_ != null) {
+        if (sender_ == null) {
+          Sender = new global::ChatCommon.User();
+        }
+        Sender.MergeFrom(other.Sender);
+      }
+      users_.Add(other.users_);
       if (other.Message.Length != 0) {
         Message = other.Message;
       }
@@ -508,6 +560,17 @@ namespace Join {
             break;
           }
           case 18: {
+            if (sender_ == null) {
+              Sender = new global::ChatCommon.User();
+            }
+            input.ReadMessage(Sender);
+            break;
+          }
+          case 26: {
+            users_.AddEntriesFrom(input, _repeated_users_codec);
+            break;
+          }
+          case 34: {
             Message = input.ReadString();
             break;
           }
@@ -535,6 +598,17 @@ namespace Join {
             break;
           }
           case 18: {
+            if (sender_ == null) {
+              Sender = new global::ChatCommon.User();
+            }
+            input.ReadMessage(Sender);
+            break;
+          }
+          case 26: {
+            users_.AddEntriesFrom(ref input, _repeated_users_codec);
+            break;
+          }
+          case 34: {
             Message = input.ReadString();
             break;
           }

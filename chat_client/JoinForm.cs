@@ -50,7 +50,7 @@ namespace chat_client {
 
             NetworkManager.Instance.SendMessage(PacketCommand.CMD_JOIN_REQUEST, request);
 
-            UserManager.Instance.SetUserInfo(id, nickname);
+            UserManager.Instance.SetMyUserInfo(id, nickname);
         }
 
 

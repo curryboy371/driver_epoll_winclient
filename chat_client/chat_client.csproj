@@ -87,6 +87,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="proto\Admin.cs" />
     <Compile Include="proto\Chat.cs" />
+    <Compile Include="proto\Common.cs" />
     <Compile Include="proto\Join.cs" />
     <Compile Include="proto\Login.cs" />
     <Compile Include="SocketHandler.cs" />

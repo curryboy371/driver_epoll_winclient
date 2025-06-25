@@ -24,14 +24,16 @@ namespace Login {
     static LoginReflection() {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
-            "Cgtsb2dpbi5wcm90bxIFbG9naW4iLAoMTG9naW5SZXF1ZXN0EgoKAmlkGAEg",
-            "ASgJEhAKCHBhc3N3b3JkGAIgASgJIjIKDUxvZ2luUmVzcG9uc2USDwoHc3Vj",
-            "Y2VzcxgBIAEoCBIQCghuaWNrbmFtZRgCIAEoCWIGcHJvdG8z"));
+            "Cgtsb2dpbi5wcm90bxIFbG9naW4aDGNvbW1vbi5wcm90byIsCgxMb2dpblJl",
+            "cXVlc3QSCgoCaWQYASABKAkSEAoIcGFzc3dvcmQYAiABKAkiZQoNTG9naW5S",
+            "ZXNwb25zZRIPCgdzdWNjZXNzGAEgASgIEiEKBnNlbmRlchgCIAEoCzIRLmNo",
+            "YXRfY29tbW9uLlVzZXISIAoFdXNlcnMYAyADKAsyES5jaGF0X2NvbW1vbi5V",
+            "c2VyYgZwcm90bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
-          new pbr::FileDescriptor[] { },
+          new pbr::FileDescriptor[] { global::ChatCommon.CommonReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
             new pbr::GeneratedClrTypeInfo(typeof(global::Login.LoginRequest), global::Login.LoginRequest.Parser, new[]{ "Id", "Password" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Login.LoginResponse), global::Login.LoginResponse.Parser, new[]{ "Success", "Nickname" }, null, null, null, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::Login.LoginResponse), global::Login.LoginResponse.Parser, new[]{ "Success", "Sender", "Users" }, null, null, null, null)
           }));
     }
     #endregion
@@ -309,7 +311,8 @@ namespace Login {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public LoginResponse(LoginResponse other) : this() {
       success_ = other.success_;
-      nickname_ = other.nickname_;
+      sender_ = other.sender_ != null ? other.sender_.Clone() : null;
+      users_ = other.users_.Clone();
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -331,16 +334,27 @@ namespace Login {
       }
     }
 
-    /// <summary>Field number for the "nickname" field.</summary>
-    public const int NicknameFieldNumber = 2;
-    private string nickname_ = "";
+    /// <summary>Field number for the "sender" field.</summary>
+    public const int SenderFieldNumber = 2;
+    private global::ChatCommon.User sender_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public string Nickname {
-      get { return nickname_; }
+    public global::ChatCommon.User Sender {
+      get { return sender_; }
       set {
-        nickname_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+        sender_ = value;
       }
+    }
+
+    /// <summary>Field number for the "users" field.</summary>
+    public const int UsersFieldNumber = 3;
+    private static readonly pb::FieldCodec<global::ChatCommon.User> _repeated_users_codec
+        = pb::FieldCodec.ForMessage(26, global::ChatCommon.User.Parser);
+    private readonly pbc::RepeatedField<global::ChatCommon.User> users_ = new pbc::RepeatedField<global::ChatCommon.User>();
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public pbc::RepeatedField<global::ChatCommon.User> Users {
+      get { return users_; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -359,7 +373,8 @@ namespace Login {
         return true;
       }
       if (Success != other.Success) return false;
-      if (Nickname != other.Nickname) return false;
+      if (!object.Equals(Sender, other.Sender)) return false;
+      if(!users_.Equals(other.users_)) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -368,7 +383,8 @@ namespace Login {
     public override int GetHashCode() {
       int hash = 1;
       if (Success != false) hash ^= Success.GetHashCode();
-      if (Nickname.Length != 0) hash ^= Nickname.GetHashCode();
+      if (sender_ != null) hash ^= Sender.GetHashCode();
+      hash ^= users_.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -391,10 +407,11 @@ namespace Login {
         output.WriteRawTag(8);
         output.WriteBool(Success);
       }
-      if (Nickname.Length != 0) {
+      if (sender_ != null) {
         output.WriteRawTag(18);
-        output.WriteString(Nickname);
+        output.WriteMessage(Sender);
       }
+      users_.WriteTo(output, _repeated_users_codec);
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -409,10 +426,11 @@ namespace Login {
         output.WriteRawTag(8);
         output.WriteBool(Success);
       }
-      if (Nickname.Length != 0) {
+      if (sender_ != null) {
         output.WriteRawTag(18);
-        output.WriteString(Nickname);
+        output.WriteMessage(Sender);
       }
+      users_.WriteTo(ref output, _repeated_users_codec);
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
       }
@@ -426,9 +444,10 @@ namespace Login {
       if (Success != false) {
         size += 1 + 1;
       }
-      if (Nickname.Length != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeStringSize(Nickname);
+      if (sender_ != null) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(Sender);
       }
+      size += users_.CalculateSize(_repeated_users_codec);
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
       }
@@ -444,9 +463,13 @@ namespace Login {
       if (other.Success != false) {
         Success = other.Success;
       }
-      if (other.Nickname.Length != 0) {
-        Nickname = other.Nickname;
+      if (other.sender_ != null) {
+        if (sender_ == null) {
+          Sender = new global::ChatCommon.User();
+        }
+        Sender.MergeFrom(other.Sender);
       }
+      users_.Add(other.users_);
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
 
@@ -471,7 +494,14 @@ namespace Login {
             break;
           }
           case 18: {
-            Nickname = input.ReadString();
+            if (sender_ == null) {
+              Sender = new global::ChatCommon.User();
+            }
+            input.ReadMessage(Sender);
+            break;
+          }
+          case 26: {
+            users_.AddEntriesFrom(input, _repeated_users_codec);
             break;
           }
         }
@@ -498,7 +528,14 @@ namespace Login {
             break;
           }
           case 18: {
-            Nickname = input.ReadString();
+            if (sender_ == null) {
+              Sender = new global::ChatCommon.User();
+            }
+            input.ReadMessage(Sender);
+            break;
+          }
+          case 26: {
+            users_.AddEntriesFrom(ref input, _repeated_users_codec);
             break;
           }
         }

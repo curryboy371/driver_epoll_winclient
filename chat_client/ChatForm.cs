@@ -52,7 +52,7 @@ namespace chat_client {
             if (!string.IsNullOrEmpty(inputText)) {
                 // 1. 서버에 채팅 전송
                 ChatMessage msg = new ChatMessage {
-                    Name = UserManager.Instance.UserName,
+                    Name = UserManager.Instance.myUser.Name,
                     Message = inputText
                 };
 
@@ -81,7 +81,7 @@ namespace chat_client {
                 if (!string.IsNullOrEmpty(inputText)) {
                     // 1. 서버에 채팅 전송
                     ChatMessage msg = new ChatMessage {
-                        Name = UserManager.Instance.UserName,
+                        Name = UserManager.Instance.myUser.Name,
                         Message = inputText
                     };
 
