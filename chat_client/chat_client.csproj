@@ -89,6 +89,7 @@
     <Compile Include="proto\Chat.cs" />
     <Compile Include="proto\Common.cs" />
     <Compile Include="proto\Join.cs" />
+    <Compile Include="proto\Leave.cs" />
     <Compile Include="proto\Login.cs" />
     <Compile Include="SocketHandler.cs" />
     <Compile Include="UserManager.cs" />

@@ -9,7 +9,7 @@ using pb = global::Google.Protobuf;
 using pbc = global::Google.Protobuf.Collections;
 using pbr = global::Google.Protobuf.Reflection;
 using scg = global::System.Collections.Generic;
-namespace ChatCommon {
+namespace Common {
 
   /// <summary>Holder for reflection information generated from common.proto</summary>
   public static partial class CommonReflection {
@@ -24,12 +24,12 @@ namespace ChatCommon {
     static CommonReflection() {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
-            "Cgxjb21tb24ucHJvdG8SC2NoYXRfY29tbW9uIiAKBFVzZXISCgoCaWQYASAB",
-            "KAkSDAoEbmFtZRgCIAEoCWIGcHJvdG8z"));
+            "Cgxjb21tb24ucHJvdG8SBmNvbW1vbiItCgRVc2VyEgsKA3VpZBgBIAEoBRIK",
+            "CgJpZBgCIAEoCRIMCgRuYW1lGAMgASgJYgZwcm90bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
-            new pbr::GeneratedClrTypeInfo(typeof(global::ChatCommon.User), global::ChatCommon.User.Parser, new[]{ "Id", "Name" }, null, null, null, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::Common.User), global::Common.User.Parser, new[]{ "Uid", "Id", "Name" }, null, null, null, null)
           }));
     }
     #endregion
@@ -51,7 +51,7 @@ namespace ChatCommon {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::ChatCommon.CommonReflection.Descriptor.MessageTypes[0]; }
+      get { return global::Common.CommonReflection.Descriptor.MessageTypes[0]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -71,6 +71,7 @@ namespace ChatCommon {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public User(User other) : this() {
+      uid_ = other.uid_;
       id_ = other.id_;
       name_ = other.name_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
@@ -82,8 +83,20 @@ namespace ChatCommon {
       return new User(this);
     }
 
+    /// <summary>Field number for the "uid" field.</summary>
+    public const int UidFieldNumber = 1;
+    private int uid_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public int Uid {
+      get { return uid_; }
+      set {
+        uid_ = value;
+      }
+    }
+
     /// <summary>Field number for the "id" field.</summary>
-    public const int IdFieldNumber = 1;
+    public const int IdFieldNumber = 2;
     private string id_ = "";
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -95,7 +108,7 @@ namespace ChatCommon {
     }
 
     /// <summary>Field number for the "name" field.</summary>
-    public const int NameFieldNumber = 2;
+    public const int NameFieldNumber = 3;
     private string name_ = "";
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -121,6 +134,7 @@ namespace ChatCommon {
       if (ReferenceEquals(other, this)) {
         return true;
       }
+      if (Uid != other.Uid) return false;
       if (Id != other.Id) return false;
       if (Name != other.Name) return false;
       return Equals(_unknownFields, other._unknownFields);
@@ -130,6 +144,7 @@ namespace ChatCommon {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override int GetHashCode() {
       int hash = 1;
+      if (Uid != 0) hash ^= Uid.GetHashCode();
       if (Id.Length != 0) hash ^= Id.GetHashCode();
       if (Name.Length != 0) hash ^= Name.GetHashCode();
       if (_unknownFields != null) {
@@ -150,12 +165,16 @@ namespace ChatCommon {
     #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       output.WriteRawMessage(this);
     #else
+      if (Uid != 0) {
+        output.WriteRawTag(8);
+        output.WriteInt32(Uid);
+      }
       if (Id.Length != 0) {
-        output.WriteRawTag(10);
+        output.WriteRawTag(18);
         output.WriteString(Id);
       }
       if (Name.Length != 0) {
-        output.WriteRawTag(18);
+        output.WriteRawTag(26);
         output.WriteString(Name);
       }
       if (_unknownFields != null) {
@@ -168,12 +187,16 @@ namespace ChatCommon {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
+      if (Uid != 0) {
+        output.WriteRawTag(8);
+        output.WriteInt32(Uid);
+      }
       if (Id.Length != 0) {
-        output.WriteRawTag(10);
+        output.WriteRawTag(18);
         output.WriteString(Id);
       }
       if (Name.Length != 0) {
-        output.WriteRawTag(18);
+        output.WriteRawTag(26);
         output.WriteString(Name);
       }
       if (_unknownFields != null) {
@@ -186,6 +209,9 @@ namespace ChatCommon {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public int CalculateSize() {
       int size = 0;
+      if (Uid != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(Uid);
+      }
       if (Id.Length != 0) {
         size += 1 + pb::CodedOutputStream.ComputeStringSize(Id);
       }
@@ -203,6 +229,9 @@ namespace ChatCommon {
     public void MergeFrom(User other) {
       if (other == null) {
         return;
+      }
+      if (other.Uid != 0) {
+        Uid = other.Uid;
       }
       if (other.Id.Length != 0) {
         Id = other.Id;
@@ -229,11 +258,15 @@ namespace ChatCommon {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
-          case 10: {
-            Id = input.ReadString();
+          case 8: {
+            Uid = input.ReadInt32();
             break;
           }
           case 18: {
+            Id = input.ReadString();
+            break;
+          }
+          case 26: {
             Name = input.ReadString();
             break;
           }
@@ -256,11 +289,15 @@ namespace ChatCommon {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
             break;
-          case 10: {
-            Id = input.ReadString();
+          case 8: {
+            Uid = input.ReadInt32();
             break;
           }
           case 18: {
+            Id = input.ReadString();
+            break;
+          }
+          case 26: {
             Name = input.ReadString();
             break;
           }

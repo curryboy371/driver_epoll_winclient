@@ -1,6 +1,7 @@
 ﻿using Admin;
 using Chat;
 using Join;
+using Leave;
 using Login;
 using System;
 using System.Collections.Generic;
@@ -49,8 +50,6 @@ namespace chat_client {
             };
 
             NetworkManager.Instance.SendMessage(PacketCommand.CMD_JOIN_REQUEST, request);
-
-            UserManager.Instance.SetMyUserInfo(id, nickname);
         }
 
 
@@ -66,7 +65,8 @@ namespace chat_client {
         }
 
         private void JoinForm_FormClosed(object sender, FormClosedEventArgs e) {
-            Application.Exit();
+            System.Windows.Forms.Application.Exit();
+
         }
 
 
@@ -76,9 +76,24 @@ namespace chat_client {
             Invoke(new Action(() => {
                 if (response.Success == true) {
                     MessageBox.Show("회원가입 성공!");
+
+                    // 내 정보 저장
+                    UserManager.Instance.SetMyUserInfo(response.Sender.Id, response.Sender.Name, response.Sender.Uid);
+
+                    // 유저 리스트 전체 클리어
+                    UserManager.Instance.UsersClear();
+
+                    // 서버에서 넘어온 전체 유저 리스트 추가
+                    foreach (var user in response.Users) {
+                        //if (user.Id != response.Sender.Id) {
+                            UserManager.Instance.AddUser(user.Id, user.Name, user.Uid);
+                        //}
+                    }
+
                     ChatForm chat = new ChatForm(parentForm);
                     chat.Show();
                     this.Hide();
+
 
                 } else {
                     MessageBox.Show("회원가입 실패: " + response.Message);
@@ -89,6 +104,17 @@ namespace chat_client {
 
 
         public void OnAdminResponse(AdminMessage response) {
+        }
+
+        public void OnLeaveNotice(LeaveNotice message) {
+        }
+
+        public void OnJoinNotice(JoinNotice notice) {
+        }
+
+        public void OnChangeNameResponse(ChangeNameResponse response) {
+        }
+        public void OnChangeNameNotice(ChangeNameNotice notice) {
         }
     }
 }

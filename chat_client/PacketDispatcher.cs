@@ -11,6 +11,7 @@ using Join;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.Tab;
 using System.IO;
 using Admin;
+using Leave;
 
 namespace chat_client {
 
@@ -49,6 +50,26 @@ namespace chat_client {
                     case PacketCommand.CMD_ADMIN_BROADCAST:
                         AdminMessage admin = AdminMessage.Parser.ParseFrom(body);
                         handler?.OnAdminResponse(admin);
+                        break;
+
+                    case PacketCommand.CMD_LEAVE_NOTIFY:
+                        LeaveNotice leave = LeaveNotice.Parser.ParseFrom(body);
+                        handler?.OnLeaveNotice(leave);
+                        break;
+
+                    case PacketCommand.CMD_JOIN_NOTIFY:
+                        JoinNotice join = JoinNotice.Parser.ParseFrom(body);
+                        handler?.OnJoinNotice(join);
+                        break;
+
+                    case PacketCommand.CMD_CHANGE_NAME_NOTIFY:
+                        ChangeNameNotice changeName = ChangeNameNotice.Parser.ParseFrom(body);
+                        handler?.OnChangeNameNotice(changeName);
+                        break;
+
+                    case PacketCommand.CMD_CHANGE_NAME_RESPONSE:
+                        ChangeNameResponse changeNameResponse = ChangeNameResponse.Parser.ParseFrom(body);
+                        handler?.OnChangeNameResponse(changeNameResponse);
                         break;
 
                     default:

@@ -25,12 +25,12 @@ namespace Login {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
             "Cgtsb2dpbi5wcm90bxIFbG9naW4aDGNvbW1vbi5wcm90byIsCgxMb2dpblJl",
-            "cXVlc3QSCgoCaWQYASABKAkSEAoIcGFzc3dvcmQYAiABKAkiZQoNTG9naW5S",
-            "ZXNwb25zZRIPCgdzdWNjZXNzGAEgASgIEiEKBnNlbmRlchgCIAEoCzIRLmNo",
-            "YXRfY29tbW9uLlVzZXISIAoFdXNlcnMYAyADKAsyES5jaGF0X2NvbW1vbi5V",
-            "c2VyYgZwcm90bzM="));
+            "cXVlc3QSCgoCaWQYASABKAkSEAoIcGFzc3dvcmQYAiABKAkiWwoNTG9naW5S",
+            "ZXNwb25zZRIPCgdzdWNjZXNzGAEgASgIEhwKBnNlbmRlchgCIAEoCzIMLmNv",
+            "bW1vbi5Vc2VyEhsKBXVzZXJzGAMgAygLMgwuY29tbW9uLlVzZXJiBnByb3Rv",
+            "Mw=="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
-          new pbr::FileDescriptor[] { global::ChatCommon.CommonReflection.Descriptor, },
+          new pbr::FileDescriptor[] { global::Common.CommonReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
             new pbr::GeneratedClrTypeInfo(typeof(global::Login.LoginRequest), global::Login.LoginRequest.Parser, new[]{ "Id", "Password" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Login.LoginResponse), global::Login.LoginResponse.Parser, new[]{ "Success", "Sender", "Users" }, null, null, null, null)
@@ -336,10 +336,10 @@ namespace Login {
 
     /// <summary>Field number for the "sender" field.</summary>
     public const int SenderFieldNumber = 2;
-    private global::ChatCommon.User sender_;
+    private global::Common.User sender_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::ChatCommon.User Sender {
+    public global::Common.User Sender {
       get { return sender_; }
       set {
         sender_ = value;
@@ -348,12 +348,12 @@ namespace Login {
 
     /// <summary>Field number for the "users" field.</summary>
     public const int UsersFieldNumber = 3;
-    private static readonly pb::FieldCodec<global::ChatCommon.User> _repeated_users_codec
-        = pb::FieldCodec.ForMessage(26, global::ChatCommon.User.Parser);
-    private readonly pbc::RepeatedField<global::ChatCommon.User> users_ = new pbc::RepeatedField<global::ChatCommon.User>();
+    private static readonly pb::FieldCodec<global::Common.User> _repeated_users_codec
+        = pb::FieldCodec.ForMessage(26, global::Common.User.Parser);
+    private readonly pbc::RepeatedField<global::Common.User> users_ = new pbc::RepeatedField<global::Common.User>();
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public pbc::RepeatedField<global::ChatCommon.User> Users {
+    public pbc::RepeatedField<global::Common.User> Users {
       get { return users_; }
     }
 
@@ -465,7 +465,7 @@ namespace Login {
       }
       if (other.sender_ != null) {
         if (sender_ == null) {
-          Sender = new global::ChatCommon.User();
+          Sender = new global::Common.User();
         }
         Sender.MergeFrom(other.Sender);
       }
@@ -495,7 +495,7 @@ namespace Login {
           }
           case 18: {
             if (sender_ == null) {
-              Sender = new global::ChatCommon.User();
+              Sender = new global::Common.User();
             }
             input.ReadMessage(Sender);
             break;
@@ -529,7 +529,7 @@ namespace Login {
           }
           case 18: {
             if (sender_ == null) {
-              Sender = new global::ChatCommon.User();
+              Sender = new global::Common.User();
             }
             input.ReadMessage(Sender);
             break;

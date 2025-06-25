@@ -15,6 +15,7 @@ using Chat;
 using System.Net.Sockets;
 using Join;
 using Admin;
+using Leave;
 
 namespace chat_client {
     public partial class LoginForm : Form, IPacketHandler {
@@ -54,13 +55,14 @@ namespace chat_client {
 
             bool connected = NetworkManager.Instance.Connect("127.0.0.1", 9000);
             if (!connected)
-                Application.Exit();
+                System.Windows.Forms.Application.Exit();
 
             NetworkManager.Instance.SetHandler(this);
         }
 
         private void LoginForm_FormClosed(object sender, FormClosedEventArgs e) {
-            Application.Exit();
+            System.Windows.Forms.Application.Exit();
+
         }
 
         public void OnLoginResponse(LoginResponse response) {
@@ -74,20 +76,44 @@ namespace chat_client {
              
              if (response.Success)
             {
-                UserManager.Instance.SetMyUserInfo(response.Sender.Id, response.Sender.Name);
+                // 내 정보 저장
+                UserManager.Instance.SetMyUserInfo(response.Sender.Id, response.Sender.Name, response.Sender.Uid);
+
+                // 유저 리스트 전체 클리어
+                UserManager.Instance.UsersClear();
+
+                // 서버에서 넘어온 전체 유저 리스트 추가
+                foreach (var user in response.Users) {
+                    //if (user.Id != response.Sender.Id) {
+                        UserManager.Instance.AddUser(user.Id, user.Name, user.Uid);
+                    //}
+                }
+
                 ChatForm chat = new ChatForm(this);
                 chat.Show();
                 this.Hide();
+
             }
             else
             {
-                MessageBox.Show("아이디와 비밀번호를 확인하시오.");
+                MessageBox.Show("아이디 비번 확인하시오.");
             }
         }
         public void OnJoinResponse(JoinResponse response) {  }
         public void OnChatMessage(ChatMessage message) {  }
 
         public void OnAdminResponse(AdminMessage response) {
+        }
+
+        public void OnLeaveNotice(LeaveNotice message) {
+        }
+
+        public void OnJoinNotice(JoinNotice notice) {
+        }
+
+        public void OnChangeNameResponse(ChangeNameResponse response) {
+        }
+        public void OnChangeNameNotice(ChangeNameNotice notice) {
         }
     }
 }

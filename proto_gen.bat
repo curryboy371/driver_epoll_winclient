@@ -16,6 +16,7 @@ echo Generating C# code from all proto files...
 	"%PROTO_DIR%\chat.proto" ^
 	"%PROTO_DIR%\login.proto" ^
 	"%PROTO_DIR%\join.proto" ^
+	"%PROTO_DIR%\leave.proto" ^
 	"%PROTO_DIR%\admin.proto"
 
 echo Done.

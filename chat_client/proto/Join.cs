@@ -26,14 +26,16 @@ namespace Join {
           string.Concat(
             "Cgpqb2luLnByb3RvEgRqb2luGgxjb21tb24ucHJvdG8iOQoLSm9pblJlcXVl",
             "c3QSCgoCaWQYASABKAkSEAoIcGFzc3dvcmQYAiABKAkSDAoEbmFtZRgDIAEo",
-            "CSJ1CgxKb2luUmVzcG9uc2USDwoHc3VjY2VzcxgBIAEoCBIhCgZzZW5kZXIY",
-            "AiABKAsyES5jaGF0X2NvbW1vbi5Vc2VyEiAKBXVzZXJzGAMgAygLMhEuY2hh",
-            "dF9jb21tb24uVXNlchIPCgdtZXNzYWdlGAQgASgJYgZwcm90bzM="));
+            "CSJrCgxKb2luUmVzcG9uc2USDwoHc3VjY2VzcxgBIAEoCBIcCgZzZW5kZXIY",
+            "AiABKAsyDC5jb21tb24uVXNlchIbCgV1c2VycxgDIAMoCzIMLmNvbW1vbi5V",
+            "c2VyEg8KB21lc3NhZ2UYBCABKAkiOwoKSm9pbk5vdGljZRIPCgdzdWNjZXNz",
+            "GAEgASgIEhwKBnNlbmRlchgCIAEoCzIMLmNvbW1vbi5Vc2VyYgZwcm90bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
-          new pbr::FileDescriptor[] { global::ChatCommon.CommonReflection.Descriptor, },
+          new pbr::FileDescriptor[] { global::Common.CommonReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
             new pbr::GeneratedClrTypeInfo(typeof(global::Join.JoinRequest), global::Join.JoinRequest.Parser, new[]{ "Id", "Password", "Name" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Join.JoinResponse), global::Join.JoinResponse.Parser, new[]{ "Success", "Sender", "Users", "Message" }, null, null, null, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::Join.JoinResponse), global::Join.JoinResponse.Parser, new[]{ "Success", "Sender", "Users", "Message" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Join.JoinNotice), global::Join.JoinNotice.Parser, new[]{ "Success", "Sender" }, null, null, null, null)
           }));
     }
     #endregion
@@ -374,10 +376,10 @@ namespace Join {
 
     /// <summary>Field number for the "sender" field.</summary>
     public const int SenderFieldNumber = 2;
-    private global::ChatCommon.User sender_;
+    private global::Common.User sender_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::ChatCommon.User Sender {
+    public global::Common.User Sender {
       get { return sender_; }
       set {
         sender_ = value;
@@ -386,12 +388,12 @@ namespace Join {
 
     /// <summary>Field number for the "users" field.</summary>
     public const int UsersFieldNumber = 3;
-    private static readonly pb::FieldCodec<global::ChatCommon.User> _repeated_users_codec
-        = pb::FieldCodec.ForMessage(26, global::ChatCommon.User.Parser);
-    private readonly pbc::RepeatedField<global::ChatCommon.User> users_ = new pbc::RepeatedField<global::ChatCommon.User>();
+    private static readonly pb::FieldCodec<global::Common.User> _repeated_users_codec
+        = pb::FieldCodec.ForMessage(26, global::Common.User.Parser);
+    private readonly pbc::RepeatedField<global::Common.User> users_ = new pbc::RepeatedField<global::Common.User>();
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public pbc::RepeatedField<global::ChatCommon.User> Users {
+    public pbc::RepeatedField<global::Common.User> Users {
       get { return users_; }
     }
 
@@ -528,7 +530,7 @@ namespace Join {
       }
       if (other.sender_ != null) {
         if (sender_ == null) {
-          Sender = new global::ChatCommon.User();
+          Sender = new global::Common.User();
         }
         Sender.MergeFrom(other.Sender);
       }
@@ -561,7 +563,7 @@ namespace Join {
           }
           case 18: {
             if (sender_ == null) {
-              Sender = new global::ChatCommon.User();
+              Sender = new global::Common.User();
             }
             input.ReadMessage(Sender);
             break;
@@ -599,7 +601,7 @@ namespace Join {
           }
           case 18: {
             if (sender_ == null) {
-              Sender = new global::ChatCommon.User();
+              Sender = new global::Common.User();
             }
             input.ReadMessage(Sender);
             break;
@@ -610,6 +612,253 @@ namespace Join {
           }
           case 34: {
             Message = input.ReadString();
+            break;
+          }
+        }
+      }
+    }
+    #endif
+
+  }
+
+  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
+  public sealed partial class JoinNotice : pb::IMessage<JoinNotice>
+  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      , pb::IBufferMessage
+  #endif
+  {
+    private static readonly pb::MessageParser<JoinNotice> _parser = new pb::MessageParser<JoinNotice>(() => new JoinNotice());
+    private pb::UnknownFieldSet _unknownFields;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public static pb::MessageParser<JoinNotice> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::Join.JoinReflection.Descriptor.MessageTypes[2]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public JoinNotice() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public JoinNotice(JoinNotice other) : this() {
+      success_ = other.success_;
+      sender_ = other.sender_ != null ? other.sender_.Clone() : null;
+      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public JoinNotice Clone() {
+      return new JoinNotice(this);
+    }
+
+    /// <summary>Field number for the "success" field.</summary>
+    public const int SuccessFieldNumber = 1;
+    private bool success_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public bool Success {
+      get { return success_; }
+      set {
+        success_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "sender" field.</summary>
+    public const int SenderFieldNumber = 2;
+    private global::Common.User sender_;
+    /// <summary>
+    /// 입장한 사람
+    /// </summary>
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public global::Common.User Sender {
+      get { return sender_; }
+      set {
+        sender_ = value;
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override bool Equals(object other) {
+      return Equals(other as JoinNotice);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public bool Equals(JoinNotice other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if (Success != other.Success) return false;
+      if (!object.Equals(Sender, other.Sender)) return false;
+      return Equals(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override int GetHashCode() {
+      int hash = 1;
+      if (Success != false) hash ^= Success.GetHashCode();
+      if (sender_ != null) hash ^= Sender.GetHashCode();
+      if (_unknownFields != null) {
+        hash ^= _unknownFields.GetHashCode();
+      }
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void WriteTo(pb::CodedOutputStream output) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      output.WriteRawMessage(this);
+    #else
+      if (Success != false) {
+        output.WriteRawTag(8);
+        output.WriteBool(Success);
+      }
+      if (sender_ != null) {
+        output.WriteRawTag(18);
+        output.WriteMessage(Sender);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(output);
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
+      if (Success != false) {
+        output.WriteRawTag(8);
+        output.WriteBool(Success);
+      }
+      if (sender_ != null) {
+        output.WriteRawTag(18);
+        output.WriteMessage(Sender);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(ref output);
+      }
+    }
+    #endif
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public int CalculateSize() {
+      int size = 0;
+      if (Success != false) {
+        size += 1 + 1;
+      }
+      if (sender_ != null) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(Sender);
+      }
+      if (_unknownFields != null) {
+        size += _unknownFields.CalculateSize();
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void MergeFrom(JoinNotice other) {
+      if (other == null) {
+        return;
+      }
+      if (other.Success != false) {
+        Success = other.Success;
+      }
+      if (other.sender_ != null) {
+        if (sender_ == null) {
+          Sender = new global::Common.User();
+        }
+        Sender.MergeFrom(other.Sender);
+      }
+      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void MergeFrom(pb::CodedInputStream input) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      input.ReadRawMessage(this);
+    #else
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+      if ((tag & 7) == 4) {
+        // Abort on any end group tag.
+        return;
+      }
+      switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+            break;
+          case 8: {
+            Success = input.ReadBool();
+            break;
+          }
+          case 18: {
+            if (sender_ == null) {
+              Sender = new global::Common.User();
+            }
+            input.ReadMessage(Sender);
+            break;
+          }
+        }
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+      if ((tag & 7) == 4) {
+        // Abort on any end group tag.
+        return;
+      }
+      switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
+            break;
+          case 8: {
+            Success = input.ReadBool();
+            break;
+          }
+          case 18: {
+            if (sender_ == null) {
+              Sender = new global::Common.User();
+            }
+            input.ReadMessage(Sender);
             break;
           }
         }
