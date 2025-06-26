@@ -34,6 +34,21 @@ namespace chat_client {
             }
         }
 
+        public void Disconnect()
+        {
+            try
+            {
+                socketHandler?.Close();
+
+                dispatcher = null;
+                socketHandler = null;
+            }
+            catch (Exception ex)
+            {
+                System.Windows.Forms.MessageBox.Show("연결 해제 중 오류: " + ex.Message);
+            }
+        }
+
         public void SetHandler(IPacketHandler handler) {
             dispatcher?.SetHandler(handler);
         }

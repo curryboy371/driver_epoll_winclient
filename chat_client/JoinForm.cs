@@ -65,6 +65,7 @@ namespace chat_client {
         }
 
         private void JoinForm_FormClosed(object sender, FormClosedEventArgs e) {
+            NetworkManager.Instance.Disconnect();
             System.Windows.Forms.Application.Exit();
 
         }

@@ -59,15 +59,41 @@ namespace chat_client {
             string inputText = richTextBox_ChatInput.Text.Trim();
 
             if (!string.IsNullOrEmpty(inputText)) {
-                // 1. 서버에 채팅 전송
-                ChatMessage msg = new ChatMessage {
-                    Name = UserManager.Instance.MyUser.Name,
-                    Message = inputText
-                };
 
-                NetworkManager.Instance.SendMessage(PacketCommand.CMD_CHAT_MESSAGE, msg);
+                bool bCommand = false;
+                // 슬래시로 시작하면 명령어로 처리
+                if (inputText.StartsWith("/"))
+                {
 
-                // 2. 입력창 비우기
+                    if (inputText.StartsWith("/bmp180"))
+                    {
+                        bCommand = true;
+                    }
+                    else if(inputText.StartsWith("/lcd1602"))
+                    {
+                        bCommand = true;
+                    }
+                }
+
+                if(bCommand)
+                {
+                    ChatCommand msg = new ChatCommand
+                    {
+                        Message = inputText
+                    };
+                    NetworkManager.Instance.SendMessage(PacketCommand.CMD_CHAT_COMMAND, msg);
+                }
+                else
+                {
+                    ChatMessage msg = new ChatMessage
+                    {
+                        Name = UserManager.Instance.MyUser.Name,
+                        Message = inputText
+                    };
+                    NetworkManager.Instance.SendMessage(PacketCommand.CMD_CHAT_MESSAGE, msg);
+                }
+
+                // 입력창 비우기
                 richTextBox_ChatInput.Clear();
             }
 
@@ -87,16 +113,43 @@ namespace chat_client {
             if (e.KeyCode == Keys.Enter) {
                 string inputText = richTextBox_ChatInput.Text.Trim();
 
-                if (!string.IsNullOrEmpty(inputText)) {
-                    // 1. 서버에 채팅 전송
-                    ChatMessage msg = new ChatMessage {
-                        Name = UserManager.Instance.MyUser.Name,
-                        Message = inputText
-                    };
+                if (!string.IsNullOrEmpty(inputText))
+                {
 
-                    NetworkManager.Instance.SendMessage(PacketCommand.CMD_CHAT_MESSAGE, msg);
+                    bool bCommand = false;
+                    // 슬래시로 시작하면 명령어로 처리
+                    if (inputText.StartsWith("/"))
+                    {
 
-                    // 2. 입력창 비우기
+                        if (inputText.StartsWith("/bmp180"))
+                        {
+                            bCommand = true;
+                        }
+                        else if (inputText.StartsWith("/lcd1602"))
+                        {
+                            bCommand = true;
+                        }
+                    }
+
+                    if (bCommand)
+                    {
+                        ChatCommand msg = new ChatCommand
+                        {
+                            Message = inputText
+                        };
+                        NetworkManager.Instance.SendMessage(PacketCommand.CMD_CHAT_COMMAND, msg);
+                    }
+                    else
+                    {
+                        ChatMessage msg = new ChatMessage
+                        {
+                            Name = UserManager.Instance.MyUser.Name,
+                            Message = inputText
+                        };
+                        NetworkManager.Instance.SendMessage(PacketCommand.CMD_CHAT_MESSAGE, msg);
+                    }
+
+                    // 입력창 비우기
                     richTextBox_ChatInput.Clear();
                 }
 
@@ -107,6 +160,7 @@ namespace chat_client {
         }
 
         private void ChatForm_FormClosed(object sender, FormClosedEventArgs e) {
+            NetworkManager.Instance.Disconnect();
             System.Windows.Forms.Application.Exit();
         }
         private void AppendSystemMessage(string message) {
@@ -143,7 +197,8 @@ namespace chat_client {
                 }
 
             }
-        }
+            label5.Text = userList.Count.ToString();
+        }  
    
         private void listBoxUsers_SelectedIndexChanged(object sender, EventArgs e) {
 
@@ -249,7 +304,7 @@ namespace chat_client {
             for (int i = 0; i < count; i++) {
                 var msg = new ChatMessage {
                     Name = UserManager.Instance.MyUser.Name,
-                    Message = $"[Spam@@@@@@@@@@@@@#################%%%%%%%%%%%%%%%%%%%%%%%%  !!!!!] Chat {i}"
+                    Message = $"[Spam@  !!!!!] Chat {i}"
                 };
 
                 NetworkManager.Instance.SendMessage(PacketCommand.CMD_CHAT_MESSAGE, msg);
@@ -257,6 +312,11 @@ namespace chat_client {
             }
 
             MessageBox.Show("스팸 테스트 완료");
+
+        }
+
+        private void label4_Click(object sender, EventArgs e)
+        {
 
         }
     }

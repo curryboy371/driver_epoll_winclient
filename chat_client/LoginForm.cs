@@ -24,9 +24,10 @@ namespace chat_client {
         public LoginForm() {
             InitializeComponent();
 
-            bool connected = NetworkManager.Instance.Connect("127.0.0.1", 9000);
+            bool connected = NetworkManager.Instance.Connect("10.10.16.142", 9000);
             if (!connected)
-                Application.Exit();
+                NetworkManager.Instance.Disconnect();
+                System.Windows.Forms.Application.Exit();
 
             NetworkManager.Instance.SetHandler(this);
         }
@@ -55,14 +56,19 @@ namespace chat_client {
 
             bool connected = NetworkManager.Instance.Connect("127.0.0.1", 9000);
             if (!connected)
+            {
+                NetworkManager.Instance.Disconnect();
                 System.Windows.Forms.Application.Exit();
+            }
+
 
             NetworkManager.Instance.SetHandler(this);
         }
 
         private void LoginForm_FormClosed(object sender, FormClosedEventArgs e) {
-            System.Windows.Forms.Application.Exit();
 
+            NetworkManager.Instance.Disconnect();
+            System.Windows.Forms.Application.Exit();
         }
 
         public void OnLoginResponse(LoginResponse response) {
@@ -96,7 +102,7 @@ namespace chat_client {
             }
             else
             {
-                MessageBox.Show("아이디 비번 확인하시오.");
+                MessageBox.Show($"로그인 실패 {response.Message}");
             }
         }
         public void OnJoinResponse(JoinResponse response) {  }
@@ -114,6 +120,11 @@ namespace chat_client {
         public void OnChangeNameResponse(ChangeNameResponse response) {
         }
         public void OnChangeNameNotice(ChangeNameNotice notice) {
+        }
+
+        private void LoginForm_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

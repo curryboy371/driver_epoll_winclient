@@ -27,3 +27,7 @@ message ChangeNameNotice {
     common.User sender = 3;    // 변경한 유저( 새로운 name)
 
 }
+
+message ChatCommand {
+  string message = 1;
+}

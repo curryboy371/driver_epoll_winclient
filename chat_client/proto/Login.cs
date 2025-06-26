@@ -25,15 +25,15 @@ namespace Login {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
             "Cgtsb2dpbi5wcm90bxIFbG9naW4aDGNvbW1vbi5wcm90byIsCgxMb2dpblJl",
-            "cXVlc3QSCgoCaWQYASABKAkSEAoIcGFzc3dvcmQYAiABKAkiWwoNTG9naW5S",
+            "cXVlc3QSCgoCaWQYASABKAkSEAoIcGFzc3dvcmQYAiABKAkibAoNTG9naW5S",
             "ZXNwb25zZRIPCgdzdWNjZXNzGAEgASgIEhwKBnNlbmRlchgCIAEoCzIMLmNv",
-            "bW1vbi5Vc2VyEhsKBXVzZXJzGAMgAygLMgwuY29tbW9uLlVzZXJiBnByb3Rv",
-            "Mw=="));
+            "bW1vbi5Vc2VyEhsKBXVzZXJzGAMgAygLMgwuY29tbW9uLlVzZXISDwoHbWVz",
+            "c2FnZRgEIAEoCWIGcHJvdG8z"));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { global::Common.CommonReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
             new pbr::GeneratedClrTypeInfo(typeof(global::Login.LoginRequest), global::Login.LoginRequest.Parser, new[]{ "Id", "Password" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Login.LoginResponse), global::Login.LoginResponse.Parser, new[]{ "Success", "Sender", "Users" }, null, null, null, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::Login.LoginResponse), global::Login.LoginResponse.Parser, new[]{ "Success", "Sender", "Users", "Message" }, null, null, null, null)
           }));
     }
     #endregion
@@ -313,6 +313,7 @@ namespace Login {
       success_ = other.success_;
       sender_ = other.sender_ != null ? other.sender_.Clone() : null;
       users_ = other.users_.Clone();
+      message_ = other.message_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -357,6 +358,18 @@ namespace Login {
       get { return users_; }
     }
 
+    /// <summary>Field number for the "message" field.</summary>
+    public const int MessageFieldNumber = 4;
+    private string message_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public string Message {
+      get { return message_; }
+      set {
+        message_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override bool Equals(object other) {
@@ -375,6 +388,7 @@ namespace Login {
       if (Success != other.Success) return false;
       if (!object.Equals(Sender, other.Sender)) return false;
       if(!users_.Equals(other.users_)) return false;
+      if (Message != other.Message) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -385,6 +399,7 @@ namespace Login {
       if (Success != false) hash ^= Success.GetHashCode();
       if (sender_ != null) hash ^= Sender.GetHashCode();
       hash ^= users_.GetHashCode();
+      if (Message.Length != 0) hash ^= Message.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -412,6 +427,10 @@ namespace Login {
         output.WriteMessage(Sender);
       }
       users_.WriteTo(output, _repeated_users_codec);
+      if (Message.Length != 0) {
+        output.WriteRawTag(34);
+        output.WriteString(Message);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -431,6 +450,10 @@ namespace Login {
         output.WriteMessage(Sender);
       }
       users_.WriteTo(ref output, _repeated_users_codec);
+      if (Message.Length != 0) {
+        output.WriteRawTag(34);
+        output.WriteString(Message);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
       }
@@ -448,6 +471,9 @@ namespace Login {
         size += 1 + pb::CodedOutputStream.ComputeMessageSize(Sender);
       }
       size += users_.CalculateSize(_repeated_users_codec);
+      if (Message.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(Message);
+      }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
       }
@@ -470,6 +496,9 @@ namespace Login {
         Sender.MergeFrom(other.Sender);
       }
       users_.Add(other.users_);
+      if (other.Message.Length != 0) {
+        Message = other.Message;
+      }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
 
@@ -504,6 +533,10 @@ namespace Login {
             users_.AddEntriesFrom(input, _repeated_users_codec);
             break;
           }
+          case 34: {
+            Message = input.ReadString();
+            break;
+          }
         }
       }
     #endif
@@ -536,6 +569,10 @@ namespace Login {
           }
           case 26: {
             users_.AddEntriesFrom(ref input, _repeated_users_codec);
+            break;
+          }
+          case 34: {
+            Message = input.ReadString();
             break;
           }
         }
