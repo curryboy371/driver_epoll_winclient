@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+
+package join;
+
+import "common.proto";
+
+message JoinRequest {
+    string id = 1;
+    string password = 2;
+    string name = 3;
+}
+
+message JoinResponse {
+    bool success = 1;
+    common.User sender = 2;
+    repeated common.User users = 3;
+    string message = 4;
+
+}
+
+message JoinNotice {
+    bool success = 1;               
+    common.User sender = 2;    // 입장한 사람
+}
