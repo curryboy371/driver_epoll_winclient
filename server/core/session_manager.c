@@ -9,6 +9,19 @@ void session_init(SessionInfo* info) {
     pthread_mutex_init(&info->mutex, NULL);
 }
 
+void session_release(SessionInfo* info) {
+    pthread_mutex_lock(&info->mutex);
+    for (int i = 0; i < MAX_SESSIONS; i++) {
+        if (info->sessions[i].active) {
+            event_loop_unregister(info->sessions[i].fd);
+            close(info->sessions[i].fd);
+            info->sessions[i].active = 0;
+        }
+    }
+    pthread_mutex_unlock(&info->mutex);
+    pthread_mutex_destroy(&info->mutex);
+}
+
 int session_add(SessionInfo* info, int fd) {
 
     if (fd >= MAX_SESSIONS) {
@@ -33,8 +46,12 @@ void session_remove(SessionInfo* info, int fd) {
     pthread_mutex_lock(&info->mutex);
     Session* session = &info->sessions[fd];
     if (session->active) {
+        event_loop_unregister(session->fd);
         close(session->fd);
         session->active = 0;
+
+        
+
     }
     pthread_mutex_unlock(&info->mutex);
     
@@ -66,7 +83,6 @@ int session_send(SessionInfo* info, int client_fd, const uint8_t* data, size_t l
 
     int sent = send(client_fd, data, len, 0);
 
-    printf("send %d \n", len);
     return (sent == len) ? 0 : -1;
 }
 
