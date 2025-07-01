@@ -12,10 +12,14 @@ namespace chat_client {
             }
         }
 
+        private bool _connected = false;
+
         private SocketHandler socketHandler;
         private PacketDispatcher dispatcher;
 
         private NetworkManager() { }
+
+        public bool isConnect() { return _connected; }
 
         public bool Connect(string serverIP, int port) {
             try {
@@ -25,7 +29,7 @@ namespace chat_client {
                 dispatcher = new PacketDispatcher(null);
                 socketHandler = new SocketHandler(client, dispatcher);
                 socketHandler.StartReceiveLoop();
-
+                _connected = true;
                 return true;
             }
             catch (Exception ex) {

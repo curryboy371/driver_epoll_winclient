@@ -25,6 +25,11 @@ namespace chat_client {
 
         public User MyUser { get; private set; } = new User("", "", 0);
 
+        public bool IsDebugUser {  get;  set; }
+        public int debug_timer { get; set; }
+        public int debug_user_count { get; set; }
+
+
         public void SetMyUserInfo(string id, string name, int uid) {
             MyUser = new User(id, name, uid);
         }
