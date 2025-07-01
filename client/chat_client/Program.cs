@@ -4,7 +4,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-
 namespace chat_client {
     internal static class Program {
         /// <summary>
@@ -15,11 +14,14 @@ namespace chat_client {
 
 
         [STAThread]
-        static void Main() {
+        static void Main(string[] args) {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            login_form = new LoginForm();
-            Application.Run(login_form);
+            login_form = new LoginForm(args);
+
+            if(NetworkManager.Instance.isConnect()) {
+                Application.Run(login_form);
+            }
         }
     }
 }

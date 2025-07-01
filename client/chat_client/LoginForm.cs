@@ -20,16 +20,47 @@ using Leave;
 namespace chat_client {
     public partial class LoginForm : Form, IPacketHandler {
 
+        private bool _isDebugAccount = false;
+        private string _debugId = "";
 
-        public LoginForm() {
+        public LoginForm(string[] args) {
             InitializeComponent();
+            // 실행인자: debug testid123 5000 30
+            if (args.Length >= 2 && args[0].ToLower() == "debug") {
+                _isDebugAccount = true;
+                _debugId = args[1];  // 두번째 인자
 
-            bool connected = NetworkManager.Instance.Connect("10.10.16.142", 9000);
-            if (!connected)
+                if (args.Length >= 3 && int.TryParse(args[2], out int interval)) {
+                    UserManager.Instance.debug_timer = interval;
+                } else {
+                    UserManager.Instance.debug_timer = 1000; // 기본값
+                }
+
+                if (args.Length >= 4 && int.TryParse(args[3], out int userCount)) {
+                    UserManager.Instance.debug_user_count = userCount;
+                } else {
+                    UserManager.Instance.debug_user_count = 1; // 기본값
+                }
+            }
+
+            bool connected = NetworkManager.Instance.Connect("127.0.0.1", 9000);
+             if (!connected) {
                 NetworkManager.Instance.Disconnect();
                 System.Windows.Forms.Application.Exit();
+                return;
+            }
 
             NetworkManager.Instance.SetHandler(this);
+
+            if(_isDebugAccount) {
+
+                LoginRequest login = new LoginRequest {
+                    Id = "_debug"+_debugId,
+                    Password = ""
+                };
+                NetworkManager.Instance.SendMessage(PacketCommand.CMD_LOGIN_REQUEST, login);
+                UserManager.Instance.IsDebugUser = true;
+            }
         }
 
 

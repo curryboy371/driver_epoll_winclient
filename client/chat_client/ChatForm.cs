@@ -13,12 +13,15 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static System.Net.Mime.MediaTypeNames;
+using System.Threading;
 
 namespace chat_client {
     public partial class ChatForm : Form, IPacketHandler {
 
-        private LoginForm parentForm;
+        private System.Threading.Timer _timer;
 
+        private LoginForm parentForm;
+        private int send_count = 0;
 
         public ChatForm(LoginForm form) {
             InitializeComponent();
@@ -30,6 +33,14 @@ namespace chat_client {
             AppendSystemMessage(welcomMsg);
 
             textbox_name.Text = UserManager.Instance.MyUser.Name;
+
+            if (UserManager.Instance.IsDebugUser) {
+
+                if (UserManager.Instance.GetAllUsers().Count == UserManager.Instance.debug_user_count) {
+                    _timer = new System.Threading.Timer(SendChatMessage, null, 0, UserManager.Instance.debug_timer);
+                }
+            }
+
         }
 
         public void OnChatMessage(ChatMessage message) {
@@ -232,6 +243,13 @@ namespace chat_client {
             string joinMsg = $"{notice.Sender.Name} 님이 입장하였습니다.";
             // msg
             AppendSystemMessage(joinMsg);
+
+            if (UserManager.Instance.IsDebugUser) {
+
+                if(UserManager.Instance.GetAllUsers().Count == UserManager.Instance.debug_user_count) {
+                    _timer = new System.Threading.Timer(SendChatMessage, null, 0, UserManager.Instance.debug_timer);
+                }
+            }
         }
 
         public void OnChangeNameResponse(ChangeNameResponse response) {
@@ -276,6 +294,10 @@ namespace chat_client {
 
         private void button2_Click(object sender, EventArgs e) {
 
+            if (UserManager.Instance.IsDebugUser) {
+                return;
+            }
+
             string currentName = UserManager.Instance.MyUser.Name;
             string newName = textbox_name.Text.Trim();
 
@@ -318,6 +340,24 @@ namespace chat_client {
         private void label4_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void button4_Click(object sender, EventArgs e) {
+            var msg = new ChatMessage {
+                Name = UserManager.Instance.MyUser.Name,
+                Message = UserManager.Instance.MyUser.Name
+            };
+            NetworkManager.Instance.SendMessage(PacketCommand.CMD_CHAT_MESSAGE, msg);
+
+        }
+
+        private void SendChatMessage(object state) {
+            var msg = new ChatMessage {
+                Name = UserManager.Instance.MyUser.Name,
+                Message = $"send {send_count}"
+            };
+            NetworkManager.Instance.SendMessage(PacketCommand.CMD_CHAT_MESSAGE, msg);
+            ++send_count;
         }
     }
 }
