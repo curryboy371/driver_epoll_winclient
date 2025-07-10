@@ -1,6 +1,8 @@
 # 리눅스 드라이버를 곁들인 채팅서버
 
+### 참고 링크
 
+[유튜브](https://www.youtube.com/watch?v=SdQxKhBPPqQ)
 
 
 ## 1. 프로젝트 필요성 및 목적
